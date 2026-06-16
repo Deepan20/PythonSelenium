@@ -1,11 +1,17 @@
 from selenium import webdriver
 import pytest
+from selenium.webdriver.chrome.options import Options
 
 @pytest.fixture(scope="class")
 def driver():
-    driver=webdriver.Chrome()
-    driver.maximize_window()
-    driver.implicitly_wait(10)
-    driver.get("https://www.leafground.com/select.xhtml")
+    options = Options()
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+
+    driver = webdriver.Chrome(options=options)
+    driver.get("https://www.leafground.com/")
+
     yield driver
-    driver.close()
+    driver.quit()
