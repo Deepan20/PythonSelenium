@@ -18,6 +18,11 @@ class TestLeafGround:
 
     @pytest.mark.smoke
     def test_dropdown(self,driver):
+
+        wait= WebDriverWait(driver,10)
+        wait.until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "select.ui-selectonemenu"))
+        )
         ele=driver.find_element(By.CSS_SELECTOR,"select.ui-selectonemenu")
         dropdown=Select(ele)
         dropdown.select_by_visible_text("Cypress")
